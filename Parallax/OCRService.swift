@@ -58,19 +58,21 @@ final class OCRService {
             let blockFrame = block.frame
             for line in block.lines {
                 let lineText = line.text
+                self.delegate?.ocrService(self, didDetect: lineText)
+
                 let lineConfidence = line.confidence
                 let lineLanguages = line.recognizedLanguages
                 let lineCornerPoints = line.cornerPoints
                 let lineFrame = line.frame
-                for element in line.elements {
-                    let elementText = element.text
-                    //print(elementText)
-                    self.delegate?.ocrService(self, didDetect: elementText)
-                    let elementConfidence = element.confidence
-                    let elementLanguages = element.recognizedLanguages
-                    let elementCornerPoints = element.cornerPoints
-                    let elementFrame = element.frame
-                }
+//                for element in line.elements {
+//                    let elementText = element.text
+//                    //print(elementText)
+//                    self.delegate?.ocrService(self, didDetect: elementText)
+//                    let elementConfidence = element.confidence
+//                    let elementLanguages = element.recognizedLanguages
+//                    let elementCornerPoints = element.cornerPoints
+//                    let elementFrame = element.frame
+//                }
             }
         }
         

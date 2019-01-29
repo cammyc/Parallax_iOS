@@ -31,7 +31,7 @@ final class BoxService {
         reset()
         
         var images: [UIImage] = []
-        let results = results.filter({ $0.confidence > 0.5 })
+        // let results = results.filter({ $0.confidence > 0.5 })
         
         let vision_image = VisionImage(image: image)
         textRecognizer!.process(vision_image) { result, error in
@@ -42,36 +42,42 @@ final class BoxService {
             
             let resultText = result.text
             for block in result.blocks {
-                //            let blockText = block.text
-                //            let blockConfidence = block.confidence
-                //            let blockLanguages = block.recognizedLanguages
-                //            let blockCornerPoints = block.cornerPoints
-                let blockFrame = block.frame
-                
-                self.layers = results.map({ result in
-                    let layer = CALayer()
+                self.layers = block.lines.map({ results in
+                    
+                    
+                    let blockFrame = results.frame
+                    var layer = CALayer()
                     view.layer.addSublayer(layer)
                     layer.borderWidth = 2
                     layer.borderColor = UIColor.green.cgColor
                     
-                    
-                    
+                    //if(results.text.lowercased() == "martinspt22"){
                     if let croppedImage = self.crop(image: image, rect: blockFrame) {
                         images.append(croppedImage)
                     }
                     
                     
                     do {
-                        let rect = cameraLayer.layerRectConverted(fromMetadataOutputRect: result.boundingBox)
-                        layer.frame = rect
+                        //let rect = cameraLayer.layerRectConverted(fromMetadataOutputRect: blockFrame)
+                        layer.frame = blockFrame
+                        layer.setAffineTransform(layer.affineTransform().rotated(by: CGFloat.pi/2))
                     }
                     
                     self.layers2.append(layer)
+                    // }
+                    
                     return layer
+                    
                 })
+                }
+            
                 
-                // Recognized text
-            }
+            
+            
+//            for block in result.blocks {
+//
+//
+//            }
             self.delegate?.boxService(self, didDetect: images)
         }
     }

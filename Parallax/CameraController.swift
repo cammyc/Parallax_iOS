@@ -49,7 +49,7 @@ final class CameraController: UIViewController, AVCaptureVideoDataOutputSampleBu
         // begin the session
         self.captureSession.startRunning()
         
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.analyze), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.analyze), userInfo: nil, repeats: true)
 
     }
     
