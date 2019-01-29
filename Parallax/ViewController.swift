@@ -125,7 +125,7 @@ extension ViewController: OCRServiceDelegate {
         }
         
         print(text.lowercased().trimmingCharacters(in: ["."]));
-        print(text.lowercased().trimmingCharacters(in: ["."]).levenshtein("trade has been canceled"))
+        print(text.lowercased().trimmingCharacters(in: ["."]).levenshtein("trade canceled"))
     }
 }
 
